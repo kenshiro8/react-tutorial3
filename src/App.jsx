@@ -10,10 +10,16 @@ const imageArray = [
 
 export default function App() {
   const [selectedImage, setSelectedImage] = useState(imageArray[0]);
+  const [isDarkened, setIsDarkened] = useState(false);
 
   const handleClick = (index) => {
     setSelectedImage(imageArray[index]);
   };
+
+  const handleDarken = () => {
+    setIsDarkened(!isDarkened);
+  };
+
   return (
     <>
       <h1>Image gallery example</h1>
@@ -23,8 +29,13 @@ export default function App() {
           src={selectedImage.src}
           alt={selectedImage.alt}
         />
-        <div className="overlay"></div>
-        <button className="dark">Darken</button>
+        <div className="overlay"
+          style={{ backgroundColor: isDarkened ? 'rgba(0, 0, 0, 0.5)' : 'transparent' }}>
+        </div>
+        <button className="dark"
+          onClick={handleDarken}>
+            {isDarkened ? 'Lighten' : 'Darken'}
+        </button>
       </div>
       <div className="thumb-bar">
         {imageArray.map((image, index) => (
